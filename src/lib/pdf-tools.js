@@ -28,12 +28,12 @@ export const getSinglePDFReadableStream = (media) => {
       columns: [
         {
           width: 200,
-          text: media.category,
+          text: `Release Year: ${media.year}`,
           style: "subheader",
         },
         {
           width: 200,
-          text: media.type,
+          text: `Genre: ${media.type}`,
           style: "subheader",
         },
       ],
@@ -85,8 +85,8 @@ export const getPDFReadableStream = (mediaArray) => {
   const content = mediaArray.map((media) => {
     return [
       { text: media.title, style: "header" },
-      { text: media.category, style: "subheader" },
-      { text: media.type, style: "subheader" },
+      { text: `Release Year: ${media.year}`, style: "subheader" },
+      { text: `Genre: ${media.type}`, style: "subheader" },
       "\n\n",
     ];
   });

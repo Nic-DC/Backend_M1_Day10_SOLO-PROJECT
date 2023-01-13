@@ -2,6 +2,7 @@ import express from "express";
 import listEndpoints from "express-list-endpoints";
 /* ----- ENDPOINTS ----- */
 import mediasRouter from "./api/medias/index.js";
+import reviewsRouter from "./api/reviews/index.js";
 
 import cors from "cors";
 import { join } from "path";
@@ -24,6 +25,7 @@ server.use(express.json());
 
 /* --------------------- ENDPOINTS -------------------- */
 server.use("/medias", mediasRouter);
+server.use("/medias", reviewsRouter);
 
 /* ------------------- ERROR HANDLERS ----------------- */
 server.use(badRequestHandler); // 400

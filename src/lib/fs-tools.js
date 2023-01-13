@@ -12,9 +12,13 @@ console.log("PUBLIC FOLDER:", publicFolderPath);
 console.log("DATA FOLDER PATH: ", dataFolderPath);
 
 const mediasJSONPath = join(dataFolderPath, "medias.json");
+const reviewsJSONPath = join(dataFolderPath, "reviews.json");
 
 export const getMedias = () => readJSON(mediasJSONPath);
 export const writeMedias = (mediasArray) => writeJSON(mediasJSONPath, mediasArray);
+
+export const getReviews = () => readJSON(reviewsJSONPath);
+export const writeReviews = (reviewsArray) => writeJSON(reviewsJSONPath, reviewsArray);
 
 export const saveMediasPoster = (fileName, contentAsABuffer) =>
   writeFile(join(publicFolderPath, fileName), contentAsABuffer);

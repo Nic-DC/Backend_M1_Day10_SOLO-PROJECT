@@ -18,7 +18,7 @@ const mediaSchema = {
   },
   type: {
     in: ["body"],
-    isEmail: {
+    isString: {
       errorMessage: "Type is a mandatory field and needs to be a string!",
     },
   },

@@ -13,7 +13,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { pipeline } from "stream";
 import { createGzip } from "zlib";
-import { getPDFReadableStream } from "../../lib/pdf-tools.js";
+import { getSinglePDFReadableStream, getPDFReadableStream } from "../../lib/pdf-tools.js";
 // import json2csv from "json2csv";
 
 const mediasRouter = express.Router();
@@ -106,8 +106,8 @@ mediasRouter.post("/:id/poster", cloudinaryUploader, async (req, res, next) => {
 });
 
 /* ----------------- PDF DOWNLOAD -----------------*/
+// 1. for ALL MEDIAS
 mediasRouter.get("/all/pdf", async (req, res, next) => {
-  // console.log("req.body for PDF download: ", req.body);
   try {
     res.setHeader("Content-Disposition", "attachment; filename=media.pdf");
     const mediaArray = await getMedias();
@@ -122,9 +122,23 @@ mediasRouter.get("/all/pdf", async (req, res, next) => {
   }
 });
 
+// 2. for MEDIA with SPECIFIC ID
 mediasRouter.get("/:id/pdf", async (req, res, next) => {
-  console.log("req.body for PDF download: ", req.body);
   try {
+    const { id } = req.params;
+    const mediaArray = await getMedias();
+
+    const searchedMedia = mediaArray.find((media) => media.id === id);
+    if (searchedMedia) {
+      const source = getSinglePDFReadableStream(searchedMedia);
+      const destination = res;
+      pipeline(source, destination, (err) => {
+        if (err) console.log(err);
+        else console.log("PDF stream ended successfully");
+      });
+    } else {
+      next(NotFound(`The media withe id: ${id} is not in our archive`));
+    }
   } catch (error) {
     next(error);
   }

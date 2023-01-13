@@ -3,6 +3,66 @@ import { pipeline } from "stream";
 import { promisify } from "util"; // CORE MODULE
 import { getPDFWritableStream } from "./fs-tools.js";
 
+export const getSinglePDFReadableStream = (media) => {
+  const fonts = {
+    Courier: {
+      normal: "Courier",
+      bold: "Courier-Bold",
+      italics: "Courier-Oblique",
+      bolditalics: "Courier-BoldOblique",
+    },
+    Helvetica: {
+      normal: "Helvetica",
+      bold: "Helvetica-Bold",
+      italics: "Helvetica-Oblique",
+      bolditalics: "Helvetica-BoldOblique",
+    },
+  };
+  const printer = new PdfPrinter(fonts);
+
+  const content = [
+    { text: media.title, style: "header" },
+    "\n\n",
+    {
+      alignment: "justify",
+      columns: [
+        {
+          width: 200,
+          text: media.category,
+          style: "subheader",
+        },
+        {
+          width: 200,
+          text: media.type,
+          style: "subheader",
+        },
+      ],
+    },
+  ];
+  const docDefinition = {
+    content: [...content],
+    defaultStyle: {
+      font: "Helvetica",
+    },
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        font: "Courier",
+      },
+      subheader: {
+        fontSize: 15,
+        bold: false,
+      },
+    },
+  };
+
+  const pdfReadableStream = printer.createPdfKitDocument(docDefinition);
+  pdfReadableStream.end();
+
+  return pdfReadableStream;
+};
+
 export const getPDFReadableStream = (mediaArray) => {
   // Define font files
   const fonts = {

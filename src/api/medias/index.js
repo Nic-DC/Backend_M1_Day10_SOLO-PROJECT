@@ -3,8 +3,18 @@ import httpErrors from "http-errors";
 import uinqid from "uniqid";
 
 import { checksMediaSchema, triggerBadRequest } from "./validator.js";
-import { getMedias, writeMedias } from "../../lib/fs-tools.js";
+import { getMedias, writeMedias, saveMediasPoster, getMediasJsonReadableStream } from "../../lib/fs-tools.js";
 const { NotFound, BadRequest, Unauthorized } = httpErrors;
+
+// FIles upload & PDF & Swagger
+import multer from "multer";
+import { extname } from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { pipeline } from "stream";
+import { createGzip } from "zlib";
+import { getPDFReadableStream } from "../../lib/pdf-tools.js";
+// import json2csv from "json2csv";
 
 const mediasRouter = express.Router();
 
@@ -58,13 +68,60 @@ mediasRouter.get("/:id", async (req, res, next) => {
     next(error);
   }
 });
-mediasRouter.post("/:id/poster", async (req, res, next) => {
+
+/* ----------------- POSTER UPLOAD -----------------*/
+
+const cloudinaryUploader = multer({
+  storage: new CloudinaryStorage({
+    cloudinary, // cloudinary is going to search in .env vars for smt called process.env.CLOUDINARY_URL
+    params: {
+      folder: "media/posters",
+    },
+  }),
+}).single("poster");
+
+mediasRouter.post("/:id/poster", cloudinaryUploader, async (req, res, next) => {
   console.log("req.body for POST poster of single media: ", req.body);
   try {
+    const { id } = req.params;
+    console.log(req.file);
+    const url = req.file.path;
+    const mediaArray = await getMedias();
+
+    const index = mediaArray.findIndex((media) => media.id === id);
+
+    if (index !== -1) {
+      const oldMedia = mediaArray[index];
+      const media = { ...oldMedia, poster: url, updatedAt: new Date() };
+      mediaArray[index] = media;
+
+      await writeMedias(mediaArray);
+      res.send({ message: `For media with id: ${id} a poster has been successfully uploaded` });
+    } else {
+      next(NotFound(`The media withe id: ${id} id not in our archive`));
+    }
   } catch (error) {
     next(error);
   }
 });
+
+/* ----------------- PDF DOWNLOAD -----------------*/
+mediasRouter.get("/all/pdf", async (req, res, next) => {
+  // console.log("req.body for PDF download: ", req.body);
+  try {
+    res.setHeader("Content-Disposition", "attachment; filename=media.pdf");
+    const mediaArray = await getMedias();
+    const source = getPDFReadableStream(mediaArray);
+    const destination = res;
+    pipeline(source, destination, (err) => {
+      if (err) console.log(err);
+      else console.log("PDF stream ended successfully");
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 mediasRouter.get("/:id/pdf", async (req, res, next) => {
   console.log("req.body for PDF download: ", req.body);
   try {

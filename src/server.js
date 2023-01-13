@@ -1,6 +1,6 @@
 import express from "express";
 import listEndpoints from "express-list-endpoints";
-/* --- ENDPOINTS --- */
+/* ----- ENDPOINTS ----- */
 import mediasRouter from "./api/medias/index.js";
 
 import cors from "cors";
@@ -9,6 +9,7 @@ import createHttpError from "http-errors";
 import swagger from "swagger-ui-express";
 import yaml from "yamljs";
 
+/* --- ERROR HANDLERS --- */
 import { genericErrorHandler, notFoundHandler, badRequestHandler, unauthorizedHandler } from "./errorHandlers.js";
 
 const server = express();

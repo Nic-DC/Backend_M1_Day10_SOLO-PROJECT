@@ -19,7 +19,7 @@ export const writeMedias = (mediasArray) => writeJSON(mediasJSONPath, mediasArra
 export const saveMediasPoster = (fileName, contentAsABuffer) =>
   writeFile(join(publicFolderPath, fileName), contentAsABuffer);
 
-export const getMediasJsonReadableStream = () => createReadStream(booksJSONPath);
+export const getMediasJsonReadableStream = () => createReadStream(mediasJSONPath);
 export const getPDFWritableStream = (filename) => createWriteStream(join(dataFolderPath, filename));
 
 // console.log("current file url: ", import.meta.url);

@@ -24,6 +24,13 @@ server.use(express.json());
 /* --------------------- ENDPOINTS -------------------- */
 server.use("/medias", mediasRouter);
 
+/* ------------------- ERROR HANDLERS ----------------- */
+server.use(badRequestHandler); // 400
+server.use(unauthorizedHandler); // 401
+server.use(notFoundHandler); // 404
+server.use(genericErrorHandler); // 500
+// (the order of these error handlers does not really matters, expect for genericErrorHandler which needs to be the last in chain)
+
 server.listen(port, () => {
   console.table(listEndpoints(server));
   console.log(`The server listens on port: ${port}`);

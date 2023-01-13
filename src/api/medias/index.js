@@ -8,7 +8,7 @@ const { NotFound, BadRequest, Unauthorized } = httpErrors;
 
 const mediasRouter = express.Router();
 
-mediasRouter.post("/", async (req, res, next) => {
+mediasRouter.post("/", checksMediaSchema, triggerBadRequest, async (req, res, next) => {
   console.log("req.body for POST single media: ", req.body);
   try {
     const newMedia = {
@@ -44,6 +44,16 @@ mediasRouter.get("/", async (req, res, next) => {
 mediasRouter.get("/:id", async (req, res, next) => {
   console.log("req.body for GET single media: ", req.body);
   try {
+    const { id } = req.params;
+    const mediaArray = await getMedias();
+
+    const foundMedia = mediaArray.find((media) => media.id === id);
+
+    if (foundMedia) {
+      res.send(foundMedia);
+    } else {
+      next(NotFound(`The media with id: ${id} is not in our archive`));
+    }
   } catch (error) {
     next(error);
   }

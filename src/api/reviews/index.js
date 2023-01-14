@@ -102,15 +102,54 @@ reviewsRouter.put("/:mediaID/reviews/:reviewID", async (req, res, next) => {
     const { reviewID } = req.params;
 
     const mediaArray = await getMedias();
+    const reviewsArray = await getReviews();
 
-    const searchedMedia = mediaArray.filter((media) => media.id === mediaID);
+    const searchedMedia = mediaArray.find((media) => media.id === mediaID);
 
     if (searchedMedia) {
-      const reviewsArray = await getReviews();
-      const searchedReview = reviewsArray.find((review) => review._id === reviewID);
+      const index = reviewsArray.findIndex((review) => review._id === reviewID);
 
-      if (searchedReview) {
-        res.send(searchedReview);
+      if (index !== -1) {
+        const oldReview = reviewsArray[index];
+        const updatedReview = { ...oldReview, ...req.body, updatedAt: new Date() };
+        reviewsArray[index] = updatedReview;
+
+        writeReviews(reviewsArray);
+        res.send({
+          message: `Review with id: ${reviewID} successfully updated and it looks like the updatedReview below`,
+          updatedReview: updatedReview,
+        });
+      } else {
+        next(NotFound(`Review with id: ${reviewID} not in our archive`));
+      }
+    } else {
+      next(NotFound(`Media with id: ${mediaID} not in our archive`));
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 5. DELETE single review
+reviewsRouter.delete("/:mediaID/reviews/:reviewID", async (req, res, next) => {
+  try {
+    const { mediaID } = req.params;
+    const { reviewID } = req.params;
+
+    const mediaArray = await getMedias();
+    const reviewsArray = await getReviews();
+
+    const searchedMedia = mediaArray.find((media) => media.id === mediaID);
+
+    if (searchedMedia) {
+      const remainingReviews = reviewsArray.filter((review) => review._id !== reviewID);
+
+      if (reviewsArray.length !== remainingReviews.length) {
+        writeReviews(remainingReviews);
+        res.status(204).send({
+          message: `Review with id: ${reviewID} successfully deleted; Below you can see the updated list of reviews`,
+          updatedListOfReviews: remainingReviews,
+        });
       } else {
         next(NotFound(`Review with id: ${reviewID} not in our archive`));
       }

@@ -144,4 +144,27 @@ mediasRouter.get("/:id/pdf", async (req, res, next) => {
   }
 });
 
+// OMBD search
+mediasRouter.get("/", async (req, res, next) => {
+  try {
+    const mediasList = await getMedias();
+
+    if (req.query && req.query.search) {
+      const searchMedias = await mediasList.filter((media) =>
+        media.title.toLowerCase().includes(req.query.search.toLowerCase())
+      );
+
+      if (searchMedias.length > 0) {
+        res.send(searchMedias);
+      } else {
+        const reply = await axios.get(`${process.env.OMDB_URL_WITH_API_KEY & req.query.search.toLowerCase()}`);
+      }
+    } else {
+      res.send(mediasList);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default mediasRouter;

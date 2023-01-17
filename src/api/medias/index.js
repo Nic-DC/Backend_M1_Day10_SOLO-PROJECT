@@ -157,7 +157,7 @@ mediasRouter.get("/", async (req, res, next) => {
       if (searchMedias.length > 0) {
         res.send(searchMedias);
       } else {
-        const reply = await axios.get(`${process.env.OMDB_URL_WITH_API_KEY & req.query.search.toLowerCase()}`);
+        const reply = await axios.get(process.env.OMDB_URL_WITH_API_KEY + req.query.search.toLowerCase());
 
         const fetchedMedias = reply.data.Search;
 

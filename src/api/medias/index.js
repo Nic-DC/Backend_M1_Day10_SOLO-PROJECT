@@ -158,6 +158,16 @@ mediasRouter.get("/", async (req, res, next) => {
         res.send(searchMedias);
       } else {
         const reply = await axios.get(`${process.env.OMDB_URL_WITH_API_KEY & req.query.search.toLowerCase()}`);
+
+        const fetchedMedias = reply.data.Search;
+
+        if (fetchedMedias.length > 0) {
+          mediasList.push(fetchedMedias);
+          await writeMedias(mediasList);
+          res.send(fetchedMedias);
+        } else {
+          next(NotFound(`There are no medias`));
+        }
       }
     } else {
       res.send(mediasList);

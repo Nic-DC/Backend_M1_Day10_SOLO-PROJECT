@@ -16,6 +16,9 @@ import { createGzip } from "zlib";
 import { getSinglePDFReadableStream, getPDFReadableStream } from "../../lib/pdf-tools.js";
 // import json2csv from "json2csv";
 
+// axios
+import axios from "axios";
+
 const mediasRouter = express.Router();
 
 mediasRouter.post("/", checksMediaSchema, triggerBadRequest, async (req, res, next) => {
@@ -145,24 +148,45 @@ mediasRouter.get("/:id/pdf", async (req, res, next) => {
 });
 
 // OMBD search
-mediasRouter.get("/", async (req, res, next) => {
+mediasRouter.get("/all/search", async (req, res, next) => {
   try {
     const mediasList = await getMedias();
 
-    if (req.query && req.query.search) {
-      const searchMedias = await mediasList.filter((media) =>
-        media.title.toLowerCase().includes(req.query.search.toLowerCase())
+    if (req.query && req.query.s) {
+      // console.log("req.query for search", req.query);
+      // console.log(`key: ${process.env.OMDB_URL_WITH_API_KEY_SEARCH}`);
+      // console.log(`s: ${req.query.s.toLowerCase()}`);
+      const searchMedias = await mediasList.filter(
+        (media) => {
+          console.log("media.title: ", media.title);
+          return media.title.toLocaleLowerCase() === req.query.s.toLocaleLowerCase();
+        }
+        // media.title.toLowerCase().includes(req.query.s.toLowerCase())
       );
+      console.log("array: ", searchMedias);
 
       if (searchMedias.length > 0) {
         res.send(searchMedias);
       } else {
-        const reply = await axios.get(process.env.OMDB_URL_WITH_API_KEY + req.query.search.toLowerCase());
+        console.log("another");
 
+        const reply = await axios.get(`${process.env.OMDB_URL_WITH_API_KEY_SEARCH}${req.query.s.toLowerCase()}`);
+        console.log("reply", reply);
         const fetchedMedias = reply.data.Search;
 
         if (fetchedMedias.length > 0) {
-          mediasList.push(fetchedMedias);
+          for (let media of fetchedMedias) {
+            media.title = media.Title;
+            media.Title = undefined;
+            media.year = media.Year;
+            media.Year = undefined;
+            media.poster = media.Poster;
+            media.Poster = undefined;
+            media.type = media.Type;
+            media.Type = undefined;
+            mediasList.push(media);
+          }
+
           await writeMedias(mediasList);
           res.send(fetchedMedias);
         } else {

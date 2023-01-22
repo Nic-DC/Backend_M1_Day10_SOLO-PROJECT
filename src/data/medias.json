@@ -1,1 +1,117 @@
-[{"title":"Lambada","year":2900,"type":"fantasy","id":"46f0oc9clcufepoi","createdAt":"2023-01-13T11:18:20.033Z","poster":"https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673881547/media/posters/be66ksrdpnisqhioip3t.jpg","updatedAt":"2023-01-16T15:05:47.027Z"},{"title":"Mambada","year":2901,"type":"fantasy","id":"46f0oc9clcufh62a","createdAt":"2023-01-13T11:20:14.578Z","poster":"https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673619189/media/posters/ytximhp1clseccpfr5ba.jpg","updatedAt":"2023-01-13T14:13:09.075Z"},{"title":"Nambada","year":2902,"type":"fantasy","id":"46f0o31slcufi82s","createdAt":"2023-01-13T11:21:03.843Z","poster":"https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673883863/media/posters/fyvbktgljc2npgtiv7cn.jpg","updatedAt":"2023-01-16T15:44:22.452Z"},{"title":"Oambada","year":2903,"type":"fantasy","id":"46f0o6xwlcufjjfu","createdAt":"2023-01-13T11:22:05.225Z","poster":"https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673619271/media/posters/oisip21kunztpdlwkgdq.jpg","updatedAt":"2023-01-13T14:14:31.055Z"},{"title":"Pambada","year":2904,"type":"fantasy","id":"46f0oboslcuny0rl","createdAt":"2023-01-13T15:17:17.792Z","poster":"https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673883893/media/posters/dv8n1odklexejkwwbrp9.jpg","updatedAt":"2023-01-16T15:44:52.287Z"}]
+[
+  {
+    "title": "Lambada",
+    "year": 2900,
+    "type": "fantasy",
+    "id": "46f0oc9clcufepoi",
+    "createdAt": "2023-01-13T11:18:20.033Z",
+    "poster": "https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673881547/media/posters/be66ksrdpnisqhioip3t.jpg",
+    "updatedAt": "2023-01-16T15:05:47.027Z"
+  },
+  {
+    "title": "Mambada",
+    "year": 2901,
+    "type": "fantasy",
+    "id": "46f0oc9clcufh62a",
+    "createdAt": "2023-01-13T11:20:14.578Z",
+    "poster": "https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673619189/media/posters/ytximhp1clseccpfr5ba.jpg",
+    "updatedAt": "2023-01-13T14:13:09.075Z"
+  },
+  {
+    "title": "Nambada",
+    "year": 2902,
+    "type": "fantasy",
+    "id": "46f0o31slcufi82s",
+    "createdAt": "2023-01-13T11:21:03.843Z",
+    "poster": "https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673883863/media/posters/fyvbktgljc2npgtiv7cn.jpg",
+    "updatedAt": "2023-01-16T15:44:22.452Z"
+  },
+  {
+    "title": "Oambada",
+    "year": 2903,
+    "type": "fantasy",
+    "id": "46f0o6xwlcufjjfu",
+    "createdAt": "2023-01-13T11:22:05.225Z",
+    "poster": "https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673619271/media/posters/oisip21kunztpdlwkgdq.jpg",
+    "updatedAt": "2023-01-13T14:14:31.055Z"
+  },
+  {
+    "title": "Pambada",
+    "year": 2904,
+    "type": "fantasy",
+    "id": "46f0oboslcuny0rl",
+    "createdAt": "2023-01-13T15:17:17.792Z",
+    "poster": "https://res.cloudinary.com/dzu6mbbr3/image/upload/v1673883893/media/posters/dv8n1odklexejkwwbrp9.jpg",
+    "updatedAt": "2023-01-16T15:44:52.287Z"
+  },
+  {
+    "imdbID": "tt0120737",
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "year": "2001",
+    "poster": "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0167260",
+    "title": "The Lord of the Rings: The Return of the King",
+    "year": "2003",
+    "poster": "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0167261",
+    "title": "The Lord of the Rings: The Two Towers",
+    "year": "2002",
+    "poster": "https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0399295",
+    "title": "Lord of War",
+    "year": "2005",
+    "poster": "https://m.media-amazon.com/images/M/MV5BMTYzZWE3MDAtZjZkMi00MzhlLTlhZDUtNmI2Zjg3OWVlZWI0XkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt7631058",
+    "title": "The Lord of the Rings: The Rings of Power",
+    "year": "2022–",
+    "poster": "https://m.media-amazon.com/images/M/MV5BNTg3NjcxYzgtYjljNC00Y2I2LWE3YmMtOTliZTkwYTE1MmZiXkEyXkFqcGdeQXVyNTY4NDc5MDE@._V1_SX300.jpg",
+    "type": "series"
+  },
+  {
+    "imdbID": "tt0077869",
+    "title": "The Lord of the Rings",
+    "year": "1978",
+    "poster": "https://m.media-amazon.com/images/M/MV5BOGMyNWJhZmYtNGQxYi00Y2ZjLWJmNjktNTgzZWJjOTg4YjM3L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0100054",
+    "title": "Lord of the Flies",
+    "year": "1990",
+    "poster": "https://m.media-amazon.com/images/M/MV5BMDczN2I3NzItNjdlMS00YmNhLTkyODQtZGI1YWQ0NmViMTgwXkEyXkFqcGdeQXVyNjMwMjk0MTQ@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0087365",
+    "title": "Greystoke: The Legend of Tarzan, Lord of the Apes",
+    "year": "1984",
+    "poster": "https://m.media-amazon.com/images/M/MV5BM2NmYjZjOGItYTQ0ZC00YjcyLTk3MWUtYzdmZjY1MGNkMDViXkEyXkFqcGdeQXVyNzc5MjA3OA@@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0057261",
+    "title": "Lord of the Flies",
+    "year": "1963",
+    "poster": "https://m.media-amazon.com/images/M/MV5BM2FjM2VlYzgtYzI1OS00MTM2LWJmNjQtNTZkNTJjNzQzYzk5XkEyXkFqcGdeQXVyMzU4Nzk4MDI@._V1_SX300.jpg",
+    "type": "movie"
+  },
+  {
+    "imdbID": "tt0113690",
+    "title": "Lord of Illusions",
+    "year": "1995",
+    "poster": "https://m.media-amazon.com/images/M/MV5BNDg1OTc0MDQwNl5BMl5BanBnXkFtZTcwMjQ3NDk0NA@@._V1_SX300.jpg",
+    "type": "movie"
+  }
+]
